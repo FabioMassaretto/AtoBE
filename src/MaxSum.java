@@ -5,7 +5,7 @@ public class MaxSum {
     List<Integer> bigList = new ArrayList<>();
     Random random = new Random();
 
-    for (int i = 0; i <= 100000; i++){
+    for (int i = 0; i <= 10000000; i++){
       bigList.add(random.nextInt(500) + 1);
     }
 
@@ -13,13 +13,19 @@ public class MaxSum {
   }
 
   public static int findMaxSum(List<Integer> list) {
-    List<Integer> linkedListRef = new LinkedList<>(list);
-    linkedListRef.sort(Comparator.reverseOrder());
+    int firstMax = 0;
+    int secondMax = 0;
 
-    int max1 = linkedListRef.get(0);
-    linkedListRef.remove(0);
-    int max2 = linkedListRef.get(0);
-    return max1 + max2;
+    for (int item : list) {
+      if(item < firstMax && item > secondMax){
+        secondMax = item;
+      } else if(item > firstMax) {
+        secondMax = firstMax;
+        firstMax = item;
+      }
+    }
+
+    return firstMax + secondMax;
   }
 
   public static int findMaxSum2(List<Integer> list) {
@@ -30,10 +36,11 @@ public class MaxSum {
 
   public static void main(String[] args) {
     List<Integer> list = Arrays.asList(5, 9, 7, 11);
+    List<Integer> bigList = getBigList();
 
     Long start = Calendar.getInstance().getTimeInMillis();
-    System.out.println(findMaxSum(getBigList()));
-//    System.out.println(findMaxSum(list));
+    System.out.println(findMaxSum(list));
+//    System.out.println(findMaxSum(bigList));
     Long end = Calendar.getInstance().getTimeInMillis();
 
     System.out.println("Diff: " + (end - start));
