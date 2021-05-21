@@ -12,7 +12,7 @@ public class MaxSum {
     return bigList;
   }
 
-  public static int findMaxSum(List<Integer> list) {
+  private static int findMaxSum(List<Integer> list) {
     int firstMax = 0;
     int secondMax = 0;
 
